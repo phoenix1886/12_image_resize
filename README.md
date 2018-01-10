@@ -13,7 +13,7 @@ Script takes 5 arguments:
 * --scale (optiona): desired scale of resize
 * --output (optional): path for saving the output image
 
-For succesful resizing user can give height or width of scale factor. One of these arguments will be enough for resizing. If user gives both scale and dimension parameters (width|heigt), script will break. If user gives both heigh and width, resize operation can change ratio of an image, so if ratio changed, ther will be a warning about it.
+For succesful resizing user can give height or width or scale factor. One of these arguments will be enough for resizing. If user gives both scale and dimension parameters (width|height), script will break. If user gives both height and width, resize operation can change ratio of an image, so if ratio changed, there will be a warning about it.
 
 Output argument is optional, so if empty, output will be saved to current location. 
 
@@ -28,7 +28,7 @@ Output image 'pic_300x300.jpg' was saved to current directory.
 ```
 python image_resize.py 'pic.jpg'  --scale 2 'Users/double_pic.jpg'
 ```
-Output image will be saved to Users/double_pic.jpg'.
+Output image will be saved to 'Users/double_pic.jpg'.
 
 
 # Project Goals
