@@ -37,7 +37,7 @@ def parse_arguments():
 
 def resize_image(original_image, new_width=None, new_height=None, scale=None):
     if new_height and new_width:
-        return original_image.resize([int(new_width), int(new_height)])
+        return original_image.resize([new_width, new_height])
     elif new_height:
         ratio = new_height / original_image.height
         new_width = ratio * original_image.width
@@ -48,7 +48,7 @@ def resize_image(original_image, new_width=None, new_height=None, scale=None):
         new_height = scale * original_image.height
         new_width = scale * original_image.width
 
-    return original_image.resize([int(new_width), int(new_height)])
+    return original_image.resize([new_width, new_height])
 
 
 def create_output_image_name(path_to_source_image, output_image):
