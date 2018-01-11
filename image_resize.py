@@ -9,26 +9,26 @@ def parse_arguments():
 
     parser.add_argument(
         'path',
-        help='Path to original image'
+        help='Path to original image',
     )
     parser.add_argument(
         '--width',
         help='Target width',
-        type=float
+        type=int,
     )
     parser.add_argument(
         '--height',
         help='Target width',
-        type=float
+        type=int,
     )
     parser.add_argument(
         '--scale',
         help='scale of resize',
-        type=float
+        type=float,
     )
     parser.add_argument(
         '--output',
-        help='path for saving result'
+        help='path for saving result',
     )
 
     arguments = parser.parse_args()
@@ -53,13 +53,14 @@ def resize_image(original_image, new_width=None, new_height=None, scale=None):
 
 def create_output_image_name(path_to_source_image, output_image):
     filename = os.path.basename(path_to_source_image)
-    filename_list = filename.split('.')
-    filename_list[0] += ('__'
-                         + str(output_image.width)
-                         + 'x'
-                         + str(output_image.height)
-                         + '.')
-    return ''.join(filename_list)
+    name, extension = os.path.splitext(filename)
+    new_filename = '{}__{}x{}{}'.format(
+        name,
+        str(output_image.width),
+        str(output_image.height),
+        extension,
+    )
+    return new_filename
 
 
 def is_ratio_equal(image_a, image_b):
@@ -72,11 +73,10 @@ def is_ratio_equal(image_a, image_b):
 if __name__ == '__main__':
     arguments = parse_arguments()
     if arguments.scale and (arguments.width or arguments.height):
-        print('Scope and dimensions (height or width) are mutually exclusive')
-        sys.exit(2)
+        sys.exit('Scale and dimensions (height or width) '
+                 'are mutually exclusive')
     elif not arguments.scale and not arguments.width and not arguments.height:
-        print('At least one parameter (height|width|scope) required')
-        sys.exit(2)
+        sys.exit('At least one parameter (height|width|scope) required')
 
     width = arguments.width
     height = arguments.height
@@ -85,12 +85,17 @@ if __name__ == '__main__':
     path_to_output_image = arguments.output
 
     source_image = Image.open(path_to_source_image)
-    output_image = resize_image(source_image, width, height, scale)
+    output_image = resize_image(
+        source_image,
+        width,
+        height,
+        scale,
+    )
     if not is_ratio_equal(source_image, output_image):
         print('Beware! Ratio of image changed!')
     if not path_to_output_image:
         path_to_output_image = create_output_image_name(
             path_to_source_image,
-            output_image
+            output_image,
         )
     output_image.save(path_to_output_image)
