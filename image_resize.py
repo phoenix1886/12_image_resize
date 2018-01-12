@@ -18,7 +18,7 @@ def parse_arguments():
     )
     parser.add_argument(
         '--height',
-        help='Target width',
+        help='Target height',
         type=int,
     )
     parser.add_argument(
@@ -48,7 +48,7 @@ def resize_image(original_image, new_width=None, new_height=None, scale=None):
         new_height = scale * original_image.height
         new_width = scale * original_image.width
 
-    return original_image.resize([new_width, new_height])
+    return original_image.resize([int(new_width), int(new_height)])
 
 
 def create_output_image_name(path_to_source_image, output_image):
