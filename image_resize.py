@@ -56,8 +56,8 @@ def create_output_image_name(path_to_source_image, output_image):
     name, extension = os.path.splitext(filename)
     new_filename = '{}__{}x{}{}'.format(
         name,
-        str(output_image.width),
-        str(output_image.height),
+        output_image.width,
+        output_image.height,
         extension,
     )
     return new_filename
